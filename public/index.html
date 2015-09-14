@@ -4,13 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
   <title>reCon Solutions</title>
-  <link href="http://code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet"/>
+  <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet"/>
   <link href="style.css" rel="stylesheet"/>
-  <script src="ionic.bundle.js"></script>
-  <script src="angular-google-maps.min.js"></script>
-  <script src="lodash.min.js"></script>
+  <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
+  <script src="http://example.gajotres.net/include/angular-google-maps/angular-google-maps.min.js"></script>
+  <script src="http://example.gajotres.net/include/loadsh/lodash.min.js"></script>
+
   <script src="socket.js"></script>
   <script src="socket.io.js"></script>
+
   <script src="script.js"></script>
 </head>
 
@@ -48,7 +50,10 @@
           <div class="col">
             <div class="list">
               <div ng-click="firstSensorLoc()" class="item item-divider">
-                Sensor A
+                Stationary A
+                <span class="item-note balanced">
+                  online
+                </span>
               </div>
 
               <a class="item item-icon-left item-icon-right" href="#">
@@ -86,7 +91,10 @@
 
             <div class="list">
               <div ng-click="secondSensorLoc()" class="item item-divider">
-                Sensor B
+                Stationary B
+                <span class="item-note balanced">
+                  online
+                </span>
               </div>
 
               <a class="item item-icon-left item-icon-right" href="#">
@@ -125,7 +133,10 @@
 
             <div class="list">
               <div ng-click="thirdSensorLoc()" class="item item-divider">
-                Sensor C
+                Stationary C
+                <span class="item-note balanced">
+                  online
+                </span>
               </div>
 
               <a class="item item-icon-left item-icon-right" href="#">

@@ -142,7 +142,7 @@ nameApp.controller('HomeCtrl', function($scope, uiGmapGoogleMapApi, socket) {
 
   $scope.markerA.options = {
     draggable: false,
-    labelContent: "Sensor A" + '<br/> ' + "lat: " + $scope.markerA.coords.latitude + '<br/> ' + 'lon: ' + $scope.markerA.coords.longitude,
+    labelContent: "Stationary A" + '<br/> ' + "lat: " + $scope.markerA.coords.latitude + '<br/> ' + 'lon: ' + $scope.markerA.coords.longitude,
     labelAnchor: "80 120",
     labelClass: "marker-labels"
   };
@@ -157,7 +157,7 @@ nameApp.controller('HomeCtrl', function($scope, uiGmapGoogleMapApi, socket) {
 
   $scope.markerB.options = {
     draggable: false,
-    labelContent: "Sensor B" + '<br/> ' + "lat: " + $scope.markerB.coords.latitude + '<br/> ' + 'lon: ' + $scope.markerB.coords.longitude,
+    labelContent: "Stationary B" + '<br/> ' + "lat: " + $scope.markerB.coords.latitude + '<br/> ' + 'lon: ' + $scope.markerB.coords.longitude,
     labelAnchor: "80 120",
     labelClass: "marker-labels"
   };
@@ -172,7 +172,7 @@ nameApp.controller('HomeCtrl', function($scope, uiGmapGoogleMapApi, socket) {
 
   $scope.markerC.options = {
     draggable: false,
-    labelContent: "Sensor C" + '<br/> ' + "lat: " + $scope.markerC.coords.latitude + '<br/> ' + 'lon: ' + $scope.markerC.coords.longitude,
+    labelContent: "Stationary C" + '<br/> ' + "lat: " + $scope.markerC.coords.latitude + '<br/> ' + 'lon: ' + $scope.markerC.coords.longitude,
     labelAnchor: "80 120",
     labelClass: "marker-labels"
   };
