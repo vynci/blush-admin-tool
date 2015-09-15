@@ -16,19 +16,25 @@ nameApp.config(function($stateProvider, $urlRouterProvider) {
 nameApp.factory('socket', function (socketFactory) {
   return socketFactory({
     prefix: 'foo~',
-    ioSocket: io.connect('http://localhost:4444')
+    ioSocket: io.connect('http://recon-ws.herokuapp.com')
   });
 });
 
 
 nameApp.controller('HomeCtrl', function($scope, uiGmapGoogleMapApi, socket) {
-  socket.on('fromServer', function ( data ) {
+  socket.on('fromPublicServer', function ( data ) {
     console.log(data);
-    $scope.firstSensorValues = data[0];
-    $scope.secondSensorValues = data[1];
-    $scope.thirdSensorValues = data[2];
+    if(data.id === 1){
+      $scope.firstSensorValues = data;
+    }
+    else if(data.id === 2){
+      $scope.secondSensorValues = data;
+    }
+    else if(data.id === 3){
+      $scope.thirdSensorValues = data;
+    }
+
   });
-  socket.emit('event', 'hello! from angular');
 
   $scope.map = { center: { latitude: 11.633279, longitude: 122.226246 }, zoom: 6 };
   //11.633279, 122.226246
