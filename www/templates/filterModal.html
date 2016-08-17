@@ -1,0 +1,30 @@
+<ion-modal-view>
+	<ion-header-bar>
+		<h1 class="title">Filters</h1>
+	</ion-header-bar>
+	<ion-content>
+		<ion-list>
+			<ion-checkbox ng-model="filter.red">Hair Stylist</ion-checkbox>
+			<ion-checkbox ng-model="filter.yellow">Makeup Artist</ion-checkbox>
+		</ion-list>
+
+		<label class="item item-input item-select">
+			<div class="input-label">
+				Order By:
+			</div>
+			<select>
+				<option selected>Distance</option>
+				<option>Price: High to Low</option>
+				<option>Price: Low to High</option>
+				<option>Rating</option>
+			</select>
+		</label>
+
+		<div class="item">
+			<button class="button button-block button-balanced" ng-click="hideFilters()">Apply</button>
+		</div>
+		<div class="item">
+			<button class="button button-block button-stable button-outline" ng-click="hideFilters()">Cancel</button>
+		</div>
+	</ion-content>
+</ion-modal-view>

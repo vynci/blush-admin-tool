@@ -1,0 +1,40 @@
+<ion-view view-title="Artists Near You">
+  <ion-content>
+    <div class="bar bar-header item-input-inset">
+      <label class="item-input-wrapper">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="search" placeholder="Search Location">
+      </label>
+      <button class="button button-calm">
+        Go
+      </button>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button class="button button-block button-balanced button-outline button-small" ng-click="showFilters()">Show Filters</button>
+      </div>
+      <div class="col">
+        <button class="button button-block button-balanced button-small" ng-click="changeToMapView()">View in Map</button>
+      </div>
+    </div>
+
+    <div>
+      <div ng-repeat="artist in fromCloudActiveArtists">
+        <a class="item item-thumbnail-left" ng-href="#/app/artist/{{artist.id}}">
+          <img src="{{artist.attributes.avatar || userPlaceholder}}" class="blush-avatar">
+          <h2>{{artist.attributes.firstName}} {{artist.attributes.lastName}}</h2>
+          <p>{{artist.attributes.serviceType}}</p>
+          <p>₱{{findMin(artist.attributes.priceRange)}} - ₱{{findMax(artist.attributes.priceRange)}}</p>
+          <p>
+            <i class="ion-android-star energized"></i>
+            <i class="ion-android-star energized"></i>
+            <i class="ion-android-star energized"></i>
+            <i class="ion-android-star energized"></i>
+            <i class="ion-android-star-half energized"></i>
+          </p>
+        </a>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

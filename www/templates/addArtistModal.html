@@ -1,0 +1,100 @@
+<ion-modal-view>
+	<ion-header-bar>
+		<h1 class="title">Artist Profile</h1>
+	</ion-header-bar>
+	<ion-content>
+		<div class="item item-divider">
+			Profile Picture
+		</div>
+		<form name="myForm">
+			<fieldset>
+				<input type="file" ngf-select ng-model="picFile" name="file"
+				accept="image/*" ngf-max-size="2MB" required
+				ngf-model-invalid="errorFile">
+
+				<i ng-show="myForm.file.$error.maxSize">File too large
+					{{errorFile.size / 1000000|number:1}}MB: max 2M</i>
+					<br>
+					<img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb">
+					<br>
+					<br>
+					<button class="button button-assertive button-small" ng-click="picFile = null" ng-show="picFile">Remove</button>
+					<br>
+
+					<span class="progress" ng-show="picFile.progress >= 0">
+						<div style="width:{{picFile.progress}}%"
+						ng-bind="picFile.progress + '%'"></div>
+					</span>
+
+					<span ng-show="picFile.result">Upload Successful</span>
+
+					<span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+				</fieldset>
+				<br>
+			</form>
+
+		<div class="list">
+			<div class="item item-divider">
+				Personal Info
+			</div>
+			<label class="item item-input item-floating-label">
+				<span class="input-label">First Name</span>
+				<input type="text" placeholder="First Name" ng-model="artistProfile.firstName">
+			</label>
+			<label class="item item-input item-floating-label">
+				<span class="input-label">Last Name</span>
+				<input type="text" placeholder="Last Name" ng-model="artistProfile.lastName">
+			</label>
+
+			<label class="item item-input item-select">
+				<span class="input-label">Gender</span>
+				<select ng-model="artistProfile.gender">
+					<option value="female">Female</option>
+					<option value="male">Male</option>
+				</select>
+			</label>
+
+
+
+			<div class="item" ion-datetime-picker date ng-model="artistProfile.birthDate">
+				<span class="input-label">Birthdate</span>
+				<strong>{{artistProfile.birthDate| date: "yyyy-MM-dd"}}</strong>
+			</div>
+
+
+			<div class="item item-divider">
+				Contact Information
+			</div>
+
+			<label class="item item-input item-floating-label">
+				<span class="input-label">Email</span>
+				<input type="text" placeholder="Email" ng-model="artistProfile.email">
+			</label>
+			<label class="item item-input item-floating-label">
+				<span class="input-label">Contact Number</span>
+				<input type="text" placeholder="Contact Number" ng-model="artistProfile.contactNumber">
+			</label>
+			<label class="item item-input item-floating-label">
+				<span class="input-label">Address</span>
+				<input type="text" placeholder="Address" ng-model="artistProfile.address">
+			</label>
+
+			<div class="item item-divider">
+				Services
+			</div>
+			<label class="item item-input item-select">
+				<span class="input-label">Service Type</span>
+				<select ng-model="artistProfile.serviceType">
+					<option value="Makeup Artist">Makeup Artist</option>
+					<option value="Hair Stylist">Hair Stylist</option>
+				</select>
+			</label>
+
+
+
+			<label class="item" style="padding-bottom: 0px;">
+				<button class="button button-block button-light blush-button-teal button-outline" ng-click="saveArtistProfile(picFile)">Save</button>
+			</label>
+		</div>
+	</ion-content>
+</ion-modal-view>
