@@ -151,7 +151,7 @@ app.controller('ArtistCtrl', function($scope, $http, $ionicModal, $timeout, $ion
   $scope.addPortfolio = function(uploadFile){
     if(uploadFile){
       loading();
-      $http.post("http://muse-rest-api.herokuapp.com/parse/files/image.jpg", uploadFile, {
+      $http.post("https://muse-rest-api.herokuapp.com/parse/files/image.jpg", uploadFile, {
         withCredentials: false,
         headers: {
           'X-Parse-Application-Id': 'myAppId',
