@@ -5,7 +5,7 @@
       <div class="col" style="border-width: 1px; border-style: solid; border-radius: 10px; margin-right:5px;">
         <div>
           <a class="item item-thumbnail-left">
-            <img src="{{profile.avatar}}" class="blush-avatar">
+            <img src="{{profile.avatar || userPlaceholder}}" class="blush-avatar">
             <h2>{{profile.firstName}} {{profile.lastName}}</h2>
             <p>{{profile.serviceType}}</p>
             <p>

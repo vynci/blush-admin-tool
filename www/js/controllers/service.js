@@ -125,6 +125,12 @@ app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistServ
   $scope.saveArtistProfile = function(uploadFile){
     console.log(uploadFile);
 
+    $ionicLoading.show({
+      template: 'Loading: Saving Artist...'
+    }).then(function(){
+      console.log("The loading indicator is now displayed");
+    });
+
     if(uploadFile){
       $http.post("http://muse-rest-api.herokuapp.com/parse/files/image.jpg", uploadFile, {
         withCredentials: false,
@@ -136,7 +142,7 @@ app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistServ
         transformRequest: angular.identity
       }).then(function(data) {
         console.log(data.data.url);
-        updateProfile(true);
+        updateProfile(true, data.data.url);
 
       });
     }else{
@@ -146,9 +152,9 @@ app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistServ
 
   }
 
-  function updateProfile(isAvatar){
+  function updateProfile(isAvatar, url){
 
-    var Profile = Parse.Object.extend("Profile");
+    var Profile = Parse.Object.extend("Artist");
     var profile = new Profile();
 
     profile.set("firstName", $scope.artistProfile.firstName);
@@ -163,13 +169,14 @@ app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistServ
     profile.set("currentCoordinates", $scope.currentArtistCoordinates);
 
     if(isAvatar){
-      profile.set("avatar", data.data.url);
+      profile.set("avatar", url);
     }
 
 
     profile.save(null, {
       success: function(result) {
         // Execute any logic that should take place after the object is saved.
+        $ionicLoading.hide();
         var alertPopup = $ionicPopup.alert({
           title: 'Account Update',
           template: 'Your account profile has been successfully updated.'
@@ -184,6 +191,7 @@ app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistServ
       error: function(gameScore, error) {
         // Execute any logic that should take place if the save fails.
         // error is a Parse.Error with an error code and message.
+        $ionicLoading.hide();
         console.log(error);
       }
     });
@@ -241,6 +249,7 @@ app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistServ
     $scope.map.addListener('click', function(e) {
       // 3 seconds after the center of the map has changed, pan back to the
       // marker.
+
       $scope.currentArtistCoordinates = {
         lat : e.latLng.lat(),
         lng : e.latLng.lng(),

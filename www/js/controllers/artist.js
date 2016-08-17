@@ -15,6 +15,8 @@ app.controller('ArtistCtrl', function($scope, $http, $ionicModal, $timeout, $ion
     reviews : ''
   };
 
+  $scope.userPlaceholder = 'img/placeholder.png'
+
   $scope.selectedTab = 'services';
 
   $scope.images = [];
