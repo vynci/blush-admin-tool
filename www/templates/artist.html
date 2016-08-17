@@ -153,7 +153,7 @@
           </div>
           <hr>
           <div class="row" ng-repeat="portfolio in artistPortfolios">
-            <div class="col col-20"><img ng-src="{{portfolio.attributes.imagePath}}" style="width:100%;"></div>
+            <div class="col col-20"><img ng-src="{{portfolio.attributes.imagePath}}" spinkit-image-preloader='three-bounce-spinner' style="width:100%;"></div>
             <div class="col col-60"><input type="text" placeholder="Description" ng-model="portfolio.attributes.description"></div>
             <div class="col col-20"><button class="button button-block button-assertive" ng-click="deletePortfolio(portfolio)">Delete</button></div>
           </div>
