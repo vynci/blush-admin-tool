@@ -1,9 +1,9 @@
-app.service('serviceService', function($q) {
+app.service('portfolioService', function($q) {
 
-	var getServices = function() {
+	var getPortfolios = function() {
 		var defer = $q.defer();
-		var ServiceObject = Parse.Object.extend("Service");
-		var query = new Parse.Query(ServiceObject);
+		var PortfolioObject = Parse.Object.extend("Portfolio");
+		var query = new Parse.Query(PortfolioObject);
 
 		query.find({
 			success: function(results) {
@@ -16,10 +16,10 @@ app.service('serviceService', function($q) {
 		return defer.promise;
 	};
 
-	var getServiceById = function(id) {
+	var getPortfolioById = function(id) {
 		var defer = $q.defer();
-		var ServiceObject = Parse.Object.extend("Service");
-		var query = new Parse.Query(ServiceObject);
+		var PortfolioObject = Parse.Object.extend("Portfolio");
+		var query = new Parse.Query(PortfolioObject);
 
 		if(id){
 			query.equalTo("ownerId", id);
@@ -37,8 +37,8 @@ app.service('serviceService', function($q) {
 	};
 
 	return {
-		getServices: getServices,
-		getServiceById : getServiceById
+		getPortfolios: getPortfolios,
+		getPortfolioById : getPortfolioById
 	};
 
 });

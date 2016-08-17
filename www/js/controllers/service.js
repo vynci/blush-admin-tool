@@ -125,58 +125,69 @@ app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistServ
   $scope.saveArtistProfile = function(uploadFile){
     console.log(uploadFile);
 
-    $http.post("http://muse-rest-api.herokuapp.com/parse/files/image.jpg", uploadFile, {
-      withCredentials: false,
-      headers: {
-        'X-Parse-Application-Id': 'myAppId',
-        'X-Parse-REST-API-Key': 'myRestAPIKey',
-        'Content-Type': 'image/jpeg'
-      },
-      transformRequest: angular.identity
-    }).then(function(data) {
-      console.log(data.data.url);
-
-      var Artist = Parse.Object.extend("Artist");
-      var artist = new Artist();
-
-      artist.set("firstName", $scope.artistProfile.firstName);
-      artist.set("lastName", $scope.artistProfile.lastName);
-      artist.set("email", $scope.artistProfile.email);
-      artist.set("gender", $scope.artistProfile.gender);
-      artist.set("contactNumber", $scope.artistProfile.contactNumber);
-      artist.set("address", $scope.artistProfile.address);
-      artist.set("serviceType", $scope.artistProfile.serviceType);
-
-      artist.set("birthDate",$scope.artistProfile.birthDate);
-      artist.set("currentCoordinates", $scope.currentArtistCoordinates);
-      artist.set("avatar", data.data.url);
-
-      artist.save(null, {
-        success: function(result) {
-          // Execute any logic that should take place after the object is saved.
-          var alertPopup = $ionicPopup.alert({
-            title: 'Account Update',
-            template: 'Your account profile has been successfully updated.'
-          });
-
-          alertPopup.then(function(res) {
-            $scope.filterModal.hide();
-            placeMarkerAndPanTo(result.get('currentCoordinates'), $scope.map, result);
-          });
-
+    if(uploadFile){
+      $http.post("http://muse-rest-api.herokuapp.com/parse/files/image.jpg", uploadFile, {
+        withCredentials: false,
+        headers: {
+          'X-Parse-Application-Id': 'myAppId',
+          'X-Parse-REST-API-Key': 'myRestAPIKey',
+          'Content-Type': 'image/jpeg'
         },
-        error: function(gameScore, error) {
-          // Execute any logic that should take place if the save fails.
-          // error is a Parse.Error with an error code and message.
-          console.log(error);
-        }
-      });
+        transformRequest: angular.identity
+      }).then(function(data) {
+        console.log(data.data.url);
+        updateProfile(true);
 
-    });
+      });
+    }else{
+      updateProfile(false);
+    }
 
 
   }
 
+  function updateProfile(isAvatar){
+
+    var Profile = Parse.Object.extend("Profile");
+    var profile = new Profile();
+
+    profile.set("firstName", $scope.artistProfile.firstName);
+    profile.set("lastName", $scope.artistProfile.lastName);
+    profile.set("email", $scope.artistProfile.email);
+    profile.set("gender", $scope.artistProfile.gender);
+    profile.set("contactNumber", $scope.artistProfile.contactNumber);
+    profile.set("address", $scope.artistProfile.address);
+    profile.set("serviceType", $scope.artistProfile.serviceType);
+
+    profile.set("birthDate",$scope.artistProfile.birthDate);
+    profile.set("currentCoordinates", $scope.currentArtistCoordinates);
+
+    if(isAvatar){
+      profile.set("avatar", data.data.url);
+    }
+
+
+    profile.save(null, {
+      success: function(result) {
+        // Execute any logic that should take place after the object is saved.
+        var alertPopup = $ionicPopup.alert({
+          title: 'Account Update',
+          template: 'Your account profile has been successfully updated.'
+        });
+
+        alertPopup.then(function(res) {
+          $scope.filterModal.hide();
+          placeMarkerAndPanTo(result.get('currentCoordinates'), $scope.map, result);
+        });
+
+      },
+      error: function(gameScore, error) {
+        // Execute any logic that should take place if the save fails.
+        // error is a Parse.Error with an error code and message.
+        console.log(error);
+      }
+    });
+  }
   $scope.artistMarkerLists = []
 
   function initializeMap(lat,long){
@@ -236,6 +247,7 @@ app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistServ
       }
 
       $scope.filterModal.show();
+      $scope.picFile = null;
 
     });
   }
