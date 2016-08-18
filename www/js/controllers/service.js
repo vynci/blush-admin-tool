@@ -2,6 +2,9 @@
 app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistService, $ionicLoading, $state, $ionicPopup, Upload, $http) {
 
   console.log('hello service!');
+
+  $state.go($state.current, {}, {reload: true});
+
   var image = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
   var imageMakeup = 'img/makeup.png';
   var imageHair = 'img/hair.png'

@@ -81,7 +81,7 @@
           </label>
         </div>
       </div>
-      <div class="col col-75" style="border-width: 1px; border-style: solid; border-radius: 10px; margin-left:5px;">
+      <div class="col col-75" style="border-width: 1px; border-style: solid; border-radius: 10px; margin-left:2px;">
         <ion-tabs class="tabs-positive tabs-color-light tabs-icon-top">
 
           <ion-tab on-select="changeTab('services')" title="Services" icon-on="ion-ios-rose" icon-off="ion-ios-rose-outline">
@@ -102,8 +102,8 @@
           <div class="row">
             <div class="col col-20"><input type="text" placeholder="Name" ng-model="service.name"></div>
             <div class="col col-40"><input type="text" placeholder="Description" ng-model="service.description"></div>
-            <div class="col col-10"><input type="text" placeholder="price (peso)" ng-model="service.price"></div>
-            <div class="col col-10"><input type="text" placeholder="duration(mins)" ng-model="service.duration"></div>
+            <div class="col col-10"><input type="number" placeholder="price (peso)" ng-model="service.price"></div>
+            <div class="col col-10"><input type="number" placeholder="duration(mins)" ng-model="service.duration"></div>
             <div class="col col-20"><button class="button button-block button-balanced" ng-click="addService()">Add</button></div>
           </div>
           <hr>
