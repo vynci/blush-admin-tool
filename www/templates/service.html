@@ -1,6 +1,6 @@
 <ion-view view-title="Admin Tool">
   <ion-content>
-    <input id="pac-input" class="controls" type="text" placeholder="Search Location">
+    <input id="pac-input" class="controls" type="text" placeholder="Search Location" data-tap-disabled="true" ng-change='disableTap()' ng-model="search">
     <div ng-show="isShowMap" id="map" data-tap-disabled="true"></div>
     <!-- <button class="button button-block button-positive blush-button-teal" ng-click="changeToListView()" style="margin-top: 0px;
     margin-bottom: 0px;">Change to List View</button> -->

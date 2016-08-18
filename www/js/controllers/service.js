@@ -124,6 +124,16 @@ app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistServ
   //     });
   //   }
   // }
+  
+  $scope.disableTap = function() {
+        var container = document.getElementsByClassName('pac-container');
+        angular.element(container).attr('data-tap-disabled', 'true');
+        var backdrop = document.getElementsByClassName('backdrop');
+        angular.element(backdrop).attr('data-tap-disabled', 'true');
+        angular.element(container).on("click", function() {
+            document.getElementById('pac-input').blur();
+        });
+    };
 
   $scope.saveArtistProfile = function(uploadFile){
     console.log(uploadFile);
