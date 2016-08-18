@@ -1,88 +1,12 @@
 <ion-view view-title="Artist Info">
-  <ion-content>
+  <ion-content scroll="true">
 
-    <div class="row">
-      <div class="col" style="border-width: 1px; border-style: solid; border-radius: 10px; margin-right:5px;">
-        <div>
-          <a class="item item-thumbnail-left">
-            <img src="{{profile.avatar || userPlaceholder}}" class="blush-avatar">
-            <h2>{{profile.firstName}} {{profile.lastName}}</h2>
-            <p>{{profile.serviceType}}</p>
-            <p>
-              <i class="ion-android-star energized"></i>
-              <i class="ion-android-star energized"></i>
-              <i class="ion-android-star energized"></i>
-              <i class="ion-android-star energized"></i>
-              <i class="ion-android-star-half energized"></i>
-            </p>
-          </a>
-        </div>
-        <div class="list">
-          <div class="item item-divider">
-            Personal Info
-          </div>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">First Name</span>
-            <input type="text" placeholder="First Name" ng-model="profile.firstName">
-          </label>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Last Name</span>
-            <input type="text" placeholder="Last Name" ng-model="profile.lastName">
-          </label>
-
-          <label class="item item-input item-select">
-            <span class="input-label">Gender</span>
-            <select ng-model="profile.gender">
-              <option value="female">Female</option>
-              <option value="male">Male</option>
-            </select>
-          </label>
-
-
-
-          <div class="item" ion-datetime-picker date ng-model="profile.birthDate">
-            <span class="input-label">Birthdate</span>
-            <strong>{{profile.birthDate| date: "yyyy-MM-dd"}}</strong>
-          </div>
-
-
-          <div class="item item-divider">
-            Contact Information
-          </div>
-
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Email</span>
-            <input type="text" placeholder="Email" ng-model="profile.email">
-          </label>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Contact Number</span>
-            <input type="text" placeholder="Contact Number" ng-model="profile.contactNumber">
-          </label>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Address</span>
-            <input type="text" placeholder="Address" ng-model="profile.address">
-          </label>
-
-          <div class="item item-divider">
-            Services
-          </div>
-          <label class="item item-input item-select">
-            <span class="input-label">Service Type</span>
-            <select ng-model="profile.serviceType">
-              <option value="Makeup Artist">Makeup Artist</option>
-              <option value="Hair Stylist">Hair Stylist</option>
-            </select>
-          </label>
-          <label class="item">
-            <button class="button button-block button-royal" ng-click="saveArtistProfile(picFile)">Update</button>
-          </label>
-          <label class="item">
-            <button class="button button-block button-assertive" ng-click="deleteArtist()">Delete This Artist</button>
-          </label>
-        </div>
-      </div>
-      <div class="col col-75" style="border-width: 1px; border-style: solid; border-radius: 10px; margin-left:2px;">
+      <div>
         <ion-tabs class="tabs-positive tabs-color-light tabs-icon-top">
+
+          <ion-tab on-select="changeTab('profile')" title="Profile" icon-on="ion-ios-rose" icon-off="ion-ios-rose-outline">
+            <!-- Tab 1 content -->
+          </ion-tab>
 
           <ion-tab on-select="changeTab('services')" title="Services" icon-on="ion-ios-rose" icon-off="ion-ios-rose-outline">
             <!-- Tab 1 content -->
@@ -99,15 +23,15 @@
         </ion-tabs>
         <hr>
         <div ng-if="selectedTab === 'services'">
-          <div class="row">
-            <div class="col col-20"><input type="text" placeholder="Name" ng-model="service.name"></div>
+          <div class="row responsive-sm .responsive-md .responsive-lg">
+            <div class="col col-20"><input type="text" placeholder="Service Name" ng-model="service.name"></div>
             <div class="col col-40"><input type="text" placeholder="Description" ng-model="service.description"></div>
             <div class="col col-10"><input type="number" placeholder="price (peso)" ng-model="service.price"></div>
             <div class="col col-10"><input type="number" placeholder="duration(mins)" ng-model="service.duration"></div>
             <div class="col col-20"><button class="button button-block button-balanced" ng-click="addService()">Add</button></div>
           </div>
           <hr>
-          <div class="row" ng-repeat="service in artistServices">
+          <div class="row responsive-sm" ng-repeat="service in artistServices" style="border-width: 1px; border-style: solid; border-radius:10px; margin-bottom: 10px;">
             <div class="col col-20"><input type="text" placeholder="Description" ng-model="service.attributes.name"></div>
             <div class="col col-40"><input type="text" placeholder="Description" ng-model="service.attributes.description"></div>
             <div class="col col-10"><input type="text" placeholder="price" ng-model="service.attributes.price"></div>
@@ -117,8 +41,8 @@
         </div>
 
         <div ng-if="selectedTab === 'portfolio'">
-          <div class="row">
-            <div class="col col-30">
+          <div class="row responsive-sm .responsive-md .responsive-lg">
+            <div class="col col-50">
               <form name="myForm">
                 <fieldset>
                   <input type="file" ngf-select ng-model="picFile" name="file"
@@ -149,10 +73,13 @@
 
             <div class="col col-50"><input type="text" placeholder="Description" ng-model="portfolio.description"></div>
 
-            <div class="col col-20"><button class="button button-block button-balanced" ng-click="addPortfolio(picFile)">Add</button></div>
+
+          </div>
+          <div class="row">
+            <button class="button button-block button-balanced" ng-click="addPortfolio(picFile)">Add</button>
           </div>
           <hr>
-          <div class="row" ng-repeat="portfolio in artistPortfolios">
+          <div class="row responsive-sm" ng-repeat="portfolio in artistPortfolios" style="border-width: 1px; border-style: solid; border-radius:10px; margin-bottom: 10px;">
             <div class="col col-20"><img ng-src="{{portfolio.attributes.imagePath}}" spinkit-image-preloader='three-bounce-spinner' style="width:100%;"></div>
             <div class="col col-60"><input type="text" placeholder="Description" ng-model="portfolio.attributes.description"></div>
             <div class="col col-20"><button class="button button-block button-assertive" ng-click="deletePortfolio(portfolio)">Delete</button></div>
@@ -160,10 +87,90 @@
 
         </div>
 
+        <div ng-if="selectedTab === 'profile'">
+          <div>
+            <a class="item item-thumbnail-left">
+              <img src="{{profile.avatar || userPlaceholder}}" class="blush-avatar">
+              <h2>{{profile.firstName}} {{profile.lastName}}</h2>
+              <p>{{profile.serviceType}}</p>
+              <p>
+                <i class="ion-android-star energized"></i>
+                <i class="ion-android-star energized"></i>
+                <i class="ion-android-star energized"></i>
+                <i class="ion-android-star energized"></i>
+                <i class="ion-android-star-half energized"></i>
+              </p>
+            </a>
+          </div>
+          <div class="list">
+            <div class="item item-divider">
+              Personal Info
+            </div>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">First Name</span>
+              <input type="text" placeholder="First Name" ng-model="profile.firstName">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Last Name</span>
+              <input type="text" placeholder="Last Name" ng-model="profile.lastName">
+            </label>
+
+            <label class="item item-input item-select">
+              <span class="input-label">Gender</span>
+              <select ng-model="profile.gender">
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+              </select>
+            </label>
+
+
+
+            <div class="item" ion-datetime-picker date ng-model="profile.birthDate">
+              <span class="input-label">Birthdate</span>
+              <strong>{{profile.birthDate| date: "yyyy-MM-dd"}}</strong>
+            </div>
+
+
+            <div class="item item-divider">
+              Contact Information
+            </div>
+
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Email</span>
+              <input type="text" placeholder="Email" ng-model="profile.email">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Contact Number</span>
+              <input type="text" placeholder="Contact Number" ng-model="profile.contactNumber">
+            </label>
+            <label class="item item-input item-floating-label">
+              <span class="input-label">Address</span>
+              <input type="text" placeholder="Address" ng-model="profile.address">
+            </label>
+
+            <div class="item item-divider">
+              Services
+            </div>
+            <label class="item item-input item-select">
+              <span class="input-label">Service Type</span>
+              <select ng-model="profile.serviceType">
+                <option value="Makeup Artist">Makeup Artist</option>
+                <option value="Hair Stylist">Hair Stylist</option>
+              </select>
+            </label>
+            <label class="item">
+              <button class="button button-block button-royal" ng-click="saveArtistProfile(picFile)">Update</button>
+            </label>
+            <label class="item">
+              <button class="button button-block button-assertive" ng-click="deleteArtist()">Delete This Artist</button>
+            </label>
+          </div>
+        </div>
+
 
 
       </div>
-    </div>
+
 
 
 
