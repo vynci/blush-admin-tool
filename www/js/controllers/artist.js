@@ -1,5 +1,5 @@
 
-app.controller('ArtistCtrl', function($scope, $http, $ionicModal, $timeout, $ionicLoading, $stateParams, artistService, $state, $rootScope, $ionicModal, $ionicPopup, serviceService, portfolioService) {
+app.controller('ArtistCtrl', function($scope, $http, $timeout, $ionicLoading, $stateParams, artistService, $state, $rootScope, $ionicModal, $ionicPopup, serviceService, portfolioService, $window) {
 
   console.log($stateParams);
 
@@ -126,8 +126,9 @@ app.controller('ArtistCtrl', function($scope, $http, $ionicModal, $timeout, $ion
               template: 'Artist Successfully Deleted'
             });
 
-            alertPopup.then(function(res) {
+            alertPopup.then(function(res) {                
               $state.go('app.service', {}, {reload: true});
+              $window.location.reload();
             });
           },
           error: function(myObject, error) {

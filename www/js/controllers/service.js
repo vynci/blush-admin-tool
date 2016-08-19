@@ -1,10 +1,6 @@
 
 app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistService, $ionicLoading, $state, $ionicPopup, Upload, $http) {
 
-  console.log('hello service!');
-
-  $state.go($state.current, {}, {reload: true});
-
   var image = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
   var imageMakeup = 'img/makeup.png';
   var imageHair = 'img/hair.png'
@@ -331,7 +327,6 @@ app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistServ
     // more details for that place.
     searchBox.addListener('places_changed', function() {
     	var places = searchBox.getPlaces();
-
     	if (places.length == 0) {
     		return;
     	}
