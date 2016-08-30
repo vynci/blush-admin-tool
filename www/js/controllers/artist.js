@@ -45,6 +45,7 @@ app.controller('ArtistCtrl', function($scope, $http, $timeout, $ionicLoading, $s
         contactNumber : results[0].get('contactNumber'),
         serviceType : results[0].get('serviceType'),
         currentCoordinates : results[0].get('currentCoordinates'),
+        icon : results[0].get('icon') || $scope.userPlaceholder
       }
 
       getServiceById($scope.artistProfile.id);
@@ -170,6 +171,13 @@ app.controller('ArtistCtrl', function($scope, $http, $timeout, $ionicLoading, $s
         portfolio.set("imagePath", data.data.url);
         portfolio.set("description", $scope.portfolio.description);
         portfolio.set("ownerId", $scope.artistProfile.id);
+        portfolio.set("artistInfo", {
+            "name": $scope.artistProfile.get('firstName') + ' ' + $scope.artistProfile.get('lastName'),
+            "avatar": $scope.artistProfile.get('avatar'),
+            "id": $scope.artistProfile.id
+        });
+        
+        console.log(portfolio);
 
         portfolio.save(null, {
           success: function(result) {
@@ -360,7 +368,7 @@ app.controller('ArtistCtrl', function($scope, $http, $timeout, $ionicLoading, $s
         transformRequest: angular.identity
       }).then(function(data) {
         console.log(data.data.url);
-        updateProfile(true);
+        updateProfile(true, data.data.url);
 
       });
     }else{
@@ -369,7 +377,7 @@ app.controller('ArtistCtrl', function($scope, $http, $timeout, $ionicLoading, $s
     }
   }
 
-  function updateProfile(isAvatar){
+  function updateProfile(isAvatar, url){
     $scope.artistProfile.set("firstName", $scope.profile.firstName);
     $scope.artistProfile.set("lastName", $scope.profile.lastName);
     $scope.artistProfile.set("email", $scope.profile.email);
@@ -381,7 +389,7 @@ app.controller('ArtistCtrl', function($scope, $http, $timeout, $ionicLoading, $s
     $scope.artistProfile.set("birthDate",$scope.profile.birthDate);
 
     if(isAvatar){
-      $scope.artistProfile.set("avatar", data.data.url);
+      $scope.artistProfile.set("icon", url);
     }
 
 
@@ -395,7 +403,7 @@ app.controller('ArtistCtrl', function($scope, $http, $timeout, $ionicLoading, $s
         });
 
         alertPopup.then(function(res) {
-
+            $scope.profile.icon = url;
         });
 
       },

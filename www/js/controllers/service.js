@@ -294,7 +294,10 @@ app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistServ
     angular.forEach(activeArtists, function(artist){
 
       var artistMarker = new google.maps.Marker({
-        icon: iconObject[artist.get('serviceType')],
+        icon: {
+          url : artist.get('icon'),
+          scaledSize: new google.maps.Size(48, 48)
+        },
         map: $scope.map,
         animation: google.maps.Animation.DROP,
         position: artist.googleCoordinatesFormat
