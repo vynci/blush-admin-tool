@@ -1,5 +1,5 @@
 
-app.controller('ArtistCtrl', function($scope, $http, $timeout, $ionicLoading, $stateParams, artistService, $state, $rootScope, $ionicModal, $ionicPopup, serviceService, portfolioService, $window) {
+app.controller('ArtistCtrl', function($scope, $http, $timeout, $ionicLoading, $stateParams, artistService, $state, $rootScope, $ionicModal, $ionicPopup, serviceService, portfolioService, $window, appointmentService) {
 
   console.log($stateParams);
 
@@ -26,6 +26,8 @@ app.controller('ArtistCtrl', function($scope, $http, $timeout, $ionicLoading, $s
   $scope.service = {};
 
   $scope.portfolio = {};
+
+  var priceRange = [];
 
   getArtistById($stateParams.artistId);
 
@@ -65,6 +67,7 @@ app.controller('ArtistCtrl', function($scope, $http, $timeout, $ionicLoading, $s
     .then(function(results) {
       // Handle the result
       $scope.artistServices = results;
+      parsePriceRange(results);
       getPortfolioById(id);
 
       return results;
@@ -127,7 +130,7 @@ app.controller('ArtistCtrl', function($scope, $http, $timeout, $ionicLoading, $s
               template: 'Artist Successfully Deleted'
             });
 
-            alertPopup.then(function(res) {                
+            alertPopup.then(function(res) {
               $state.go('app.service', {}, {reload: true});
               $window.location.reload();
             });
@@ -176,7 +179,7 @@ app.controller('ArtistCtrl', function($scope, $http, $timeout, $ionicLoading, $s
             "avatar": $scope.artistProfile.get('avatar'),
             "id": $scope.artistProfile.id
         });
-        
+
         console.log(portfolio);
 
         portfolio.save(null, {
@@ -324,16 +327,31 @@ app.controller('ArtistCtrl', function($scope, $http, $timeout, $ionicLoading, $s
     service.save(null, {
       success: function(result) {
         // Execute any logic that should take place after the object is saved.
-        $ionicLoading.hide();
+        priceRange.push(parseInt($scope.service.price));
         var alertPopup = $ionicPopup.alert({
           title: 'Service',
           template: 'Service Successfully Added'
         });
+        $ionicLoading.hide();
 
         alertPopup.then(function(res) {
           $scope.service = {};
 
-          getArtistById($stateParams.artistId);
+          $scope.artistProfile.set("priceRange", {low: findMin(priceRange), high: findMax(priceRange)});
+
+          $scope.artistProfile.save(null, {
+            success: function(result) {
+              // Execute any logic that should take place after the object is saved.
+
+              getArtistById($stateParams.artistId);
+            },
+            error: function(gameScore, error) {
+              // Execute any logic that should take place if the save fails.
+              // error is a Parse.Error with an error code and message.
+              console.log(error);
+            }
+          });
+
         });
 
       },
@@ -414,6 +432,30 @@ app.controller('ArtistCtrl', function($scope, $http, $timeout, $ionicLoading, $s
         console.log(error);
       }
     });
+  }
+
+  function parsePriceRange(services){
+    angular.forEach(services, function(service){
+      var price = service.get('price');
+      console.log(price);
+      priceRange.push(price);
+    });
+  }
+
+  function findMin(prices){
+    if(!prices.length){
+      return 0;
+    }else{
+      return Math.min.apply(null, prices);
+    }
+  }
+
+  function findMax(prices){
+    if(!prices.length){
+      return 0;
+    }else{
+      return Math.max.apply(null, prices);
+    }
   }
 
 });

@@ -1,5 +1,18 @@
 <ion-view view-title="Browse">
   <ion-content>
-    <h1>Browse</h1>
+    <div class="list">
+
+      <a class="item item-thumbnail-left" ng-repeat="appointment in appointments">
+        <img ng-src="{{appointment.attributes.artistInfo.avatar}}" class="blush-avatar">
+        <h2>{{appointment.attributes.artistInfo.firstName}} {{appointment.attributes.artistInfo.lastName}}</h2>
+        <p><b>When: </b>{{appointment.attributes.schedule.toString() | limitTo:21}}</p>
+        <p><b>Customer: </b>{{appointment.attributes.customerInfo.firstName}} {{appointment.attributes.customerInfo.lastName}}</p>
+        <p><b>Duration: </b>{{appointment.attributes.totalDuration}} mins</p>
+        <p><b>Total: </b>₱{{appointment.attributes.totalBill}}</p>
+        <h2 ng-show="appointment.attributes.isCompleted">Status: <span class="balanced"><b>Completed</b></span></h2>
+        <button ng-hide="appointment.attributes.isCompleted" class="button button-block button-energized" ng-click="completeBooking(appointment)">Complete Booking</button>
+      </a>
+
+    </div>
   </ion-content>
 </ion-view>

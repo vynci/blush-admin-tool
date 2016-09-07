@@ -142,17 +142,65 @@ app.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, $rootS
 
 })
 
-app.controller('PlaylistsCtrl', function($scope) {
-  $scope.currentUser = Parse.User.current();
-  console.log($scope.currentUser);
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+app.controller('PlaylistsCtrl', function($scope, $ionicLoading, $ionicPopup, appointmentService) {
+
+  getAppointments();
+
+
+  $scope.completeBooking = function(appointment){
+    appointment.set("isCompleted", true);
+
+    appointment.save(null, {
+      success: function(result) {
+
+        var alertPopup = $ionicPopup.alert({
+          title: 'Booking',
+          template: 'Booking Successfully Completed'
+        });
+        $ionicLoading.hide();
+
+        alertPopup.then(function(res) {
+
+        });
+
+      },
+      error: function(gameScore, error) {
+        // Execute any logic that should take place if the save fails.
+        // error is a Parse.Error with an error code and message.
+        $ionicLoading.hide();
+        var alertPopup = $ionicPopup.alert({
+          title: 'Booking',
+          template: 'Booking Error on Complete, Please try again'
+        });
+
+        alertPopup.then(function(res) {
+
+        });
+      }
+    });
+  }
+
+  function getAppointments(){
+    $ionicLoading.show({
+      template: 'Loading :)'
+    }).then(function(){
+      console.log("The loading indicator is now displayed");
+    });
+
+    appointmentService.getBookings()
+    .then(function(results) {
+      // Handle the result
+      console.log(results);
+      $scope.appointments = results;
+      $ionicLoading.hide();
+    }, function(err) {
+      $ionicLoading.hide();
+      // Error occurred
+      console.log(err);
+    }, function(percentComplete) {
+      console.log(percentComplete);
+    });
+  }
 })
 
 app.controller('PlaylistCtrl', function($scope, $stateParams) {

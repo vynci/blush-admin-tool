@@ -158,7 +158,7 @@
                 <option value="Hair Stylist">Hair Stylist</option>
               </select>
             </label>
-            
+
             <div class="item item-divider">
                 Map Icon
             </div>
@@ -167,7 +167,7 @@
                 <img ng-src="{{profile.icon}}" style="width: 100px;">
                 <fieldset>
                     <input type="file" ngf-select ng-model="picFile" name="file"
-                    accept="image/*" ngf-max-size="2MB" required
+                    accept="image/*" ngf-max-size="20KB" required
                     ngf-model-invalid="errorFile">
 
                     <i ng-show="myForm.file.$error.maxSize">File too large
@@ -189,8 +189,8 @@
                         <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
                 </fieldset>
                     <br>
-            </form>            
-            
+            </form>
+
             <label class="item">
               <button class="button button-block button-royal" ng-click="saveArtistProfile(picFile)">Update</button>
             </label>

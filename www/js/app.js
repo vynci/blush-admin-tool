@@ -99,7 +99,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: '/browse',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/browse.html',
+          controller: 'PlaylistsCtrl'
         }
       }
     })
@@ -107,8 +108,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       url: '/playlists',
       views: {
         'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+          templateUrl: 'templates/playlists.html'
         }
       }
     })

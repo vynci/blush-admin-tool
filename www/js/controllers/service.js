@@ -120,7 +120,7 @@ app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistServ
   //     });
   //   }
   // }
-  
+
   $scope.disableTap = function() {
         var container = document.getElementsByClassName('pac-container');
         angular.element(container).attr('data-tap-disabled', 'true');
@@ -176,6 +176,9 @@ app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistServ
 
     profile.set("birthDate",$scope.artistProfile.birthDate);
     profile.set("currentCoordinates", $scope.currentArtistCoordinates);
+    profile.set("priceRange", {"low":0,"high":0});
+    profile.set("icon", 'http://muse-rest-api.herokuapp.com/parse/files/myAppId/1e20fa2f96c31f9b6652799915658039_image.jpg');
+    profile.set("coordinates", new Parse.GeoPoint({latitude: $scope.currentArtistCoordinates.lat, longitude: $scope.currentArtistCoordinates.lng}));
 
     if(isAvatar){
       profile.set("avatar", url);
@@ -431,6 +434,7 @@ app.controller('ServiceCtrl', function($scope, $ionicModal, $timeout, artistServ
     });
 
   }
+
 
 
 });
